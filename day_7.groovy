@@ -1,10 +1,12 @@
 import static FileUtils.*
 
 
+
 //-- setup --
-DAY = // number val of the puzzle day, used with file input pathing
+DAY = 7 // number val of the puzzle day, used with file input pathing
 def inputColTypes = Long
 //--
+
 
 
 // -- test input--
@@ -16,6 +18,7 @@ println "res1: $res1"
 def res2 = part2(input)
 println "res2: $res2"
 
+
 // -- real input --
 println "\n--input"
 input = getInput(inputColTypes)
@@ -26,13 +29,50 @@ res2 = part2(input)
 println "res2: $res2"
 
 
+
 // ---
 def part1(def input) {
+
+	def cost = [:]
+	
+	( input.min()..input.max() ).each { l ->
+		cost[l] = getCost(input, l)
+	}
+
+	return cost.values().min()
 
 }
 
 def part2(def input) {
+	def cost = [:]
+	
+	( (input.min())..(input.max()) ).each { l ->
+		cost[l] = getCost2(input, l)
+	}
 
+	return cost.values().min()
+
+}
+
+def getCost(def input, def l) {
+	def res = 0
+
+	input.each { i ->
+		res = res + Math.abs(i - l)
+	}
+
+	return res
+}
+
+def getCost2(def input, def l) {
+	Long res = 0
+
+	input.each { i ->
+		a = Math.abs(i - l) 
+		res = res + ( ( a * (a+1) )/2 )
+	}
+
+	return res
 }
 
 
@@ -42,7 +82,7 @@ def part2(def input) {
 def readFile(def filename, def types) {
 	
 	return formatInput(
-		readList(filename, types)
+		readSingleLineList(filename, types)
 	)
 
 	/*

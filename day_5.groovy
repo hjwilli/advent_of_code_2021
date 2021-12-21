@@ -51,6 +51,7 @@ def part2(def input) {
 
 	input.each { a, b ->
 
+
 		if ( (a[0] == b[0]) ) {
 			(a[1]..b[1]).each { y ->
 				x = a[0]
@@ -75,6 +76,7 @@ def part2(def input) {
 				points[ [x,y] ] = points[ [x, y] ] + 1
 			}
 		}
+		
 	}
 
 	return points.findAll { k, v -> v > 1 }.size()

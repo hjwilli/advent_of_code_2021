@@ -15,6 +15,11 @@ class FileUtils {
 
 	/* read comma seperated input into a list of lists
 	*
+	* a, b, c
+	* f, g h
+	*
+	* [ ["a", "b", "c"], ["f", "g", "h"] ]
+	*
 	* @parm type - class or collection of classes for casting the file values.
 	*				if a collection, size should equal number of cols in the file. 
 	*/
@@ -34,6 +39,15 @@ class FileUtils {
 		return data
 	}
 
+	/*
+	* 1
+	* 2
+	* 3
+	* 4
+	*
+	* [1,2,3,4]
+	*
+	*/
 	static def readList(def filename, def type = String) {
 		def data = []
 
@@ -41,6 +55,16 @@ class FileUtils {
 			if(line) data.add( line.trim().asType(type) )
 		}
 		return data
+	}
+
+	/*
+	* 1,2,3,4 -> [1,2,3,4]
+	*/
+	static def readSingleLineList(def filename, def type = String, def sep = ","){
+
+		def lines = new File(filename).readLines()
+
+		return lines.first().split(sep).collect { k -> k.asType(type) }
 	}
 
 
